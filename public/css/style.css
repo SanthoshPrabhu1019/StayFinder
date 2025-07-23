@@ -1,4 +1,4 @@
-.body{
+.body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
@@ -6,27 +6,29 @@
 
 
 }
-.container{
+
+.container {
     flex: 1;
 }
 
 
-.navbar{
+.navbar {
     height: 5rem;
     background-color: white;
 }
 
-.fa-compass{
+.fa-compass {
     color: red;
     font-size: 2rem;
 
 }
 
 
-.nav-link{
+.nav-link {
     color: #191919 !important;
     font-size: 1rem;
 }
+
 /* footer */
 
 .f-info-links a {
@@ -66,41 +68,60 @@
 
 
 .card {
-    border:none !important;
+    border: none !important;
     margin-bottom: 2rem;
-    
+
 }
 
-.card-img-top{
+.card-img-top {
     border-radius: 1rem !important;
     width: 100%;
     object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
     padding: 0px !important;
 
 }
 
-.card-text{
+.card-text {
     font-weight: 500 !important;
 }
 
-.listing-link{
+.listing-link {
     text-decoration: none;
 }
 
-.card-img-overlay{
+.card-img-overlay {
     opacity: 0.6;
 }
 
-.add-btn{
-    background-color:  red !important;
+.add-btn {
+    background-color: #0b9cf6 !important;
     border: none;
 }
 
- /* edit page */
+/* edit page */
 .update-btn {
-     background-color:  red !important;
+    background-color: #0b9cf6 !important;
     border: none;
+}
+
+
+/* show page */
+
+.show-img {
+  height: 40vh;
+  
+}
+
+.show-btn {
+    display: flex;
+
+}
+
+.btn-blue {
+    background-color: #0b9cf6 !important;
+    border: none;
+
 }

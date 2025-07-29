@@ -6,7 +6,7 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const path= require("path");
 const  methodOveride = require ("method-override");
 const  ejsMate = require('ejs-mate');
-
+const wrapAsync = require("./utils/wrapAsync.js")
 main() 
      .then((err)=>{
         console.log("connected to DB");
@@ -52,13 +52,14 @@ app.get("/listings/:id",async(req,res)=>{
 });
 
 // create route
-app.post("/listings",async(req,res)=>{
+app.post("/listings",wrapAsync(async(req,res,next)=>{
 const  newListing= new Listing(req.body.listing);
 await newListing.save();
 console.log(req.body.listing);
 
 res.redirect("/listings");
-});
+ 
+}));
 
 //Edit route
 
@@ -100,6 +101,10 @@ app.delete("/listings/:id",async(req,res)=>{
 
 // });
 
+
+app.use((err,req,res,next)=>{
+    res.send("soemthing went wrong!");
+})
 
 app.listen(8080,()=>{
     console.log("Server is running on port 8080");

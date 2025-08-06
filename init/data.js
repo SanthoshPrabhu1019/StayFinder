@@ -2,10 +2,7 @@ const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
     description: "Escape to this charming beachfront cottage for a relaxing getaway. Enjoy stunning ocean views and easy access to the beach.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    },
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
     price: 1500,
     location: "Malibu",
     country: "United States",
@@ -13,10 +10,7 @@ const sampleListings = [
   {
     title: "Modern Loft in Downtown",
     description: "Stay in the heart of the city in this stylish loft apartment. Perfect for urban explorers!",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1598928506311-c55ded8c8e4b",
-    },
+    image: "https://images.unsplash.com/photo-1598928506311-c55ded8c8e4b",
     price: 1200,
     location: "New York City",
     country: "United States",
@@ -24,10 +18,7 @@ const sampleListings = [
   {
     title: "Mountain Retreat",
     description: "Unplug and unwind in this peaceful mountain cabin. Surrounded by nature, it's a perfect place to recharge.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1600585154154-2058dabe30c5",
-    },
+    image: "https://images.unsplash.com/photo-1600585154154-2058dabe30c5",
     price: 1000,
     location: "Aspen",
     country: "United States",
@@ -35,10 +26,7 @@ const sampleListings = [
   {
     title: "Historic Villa in Tuscany",
     description: "Experience the charm of Tuscany in this beautifully restored villa. Explore the rolling hills and vineyards.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1600585154360-456f1d6b724e",
-    },
+    image: "https://images.unsplash.com/photo-1600585154360-456f1d6b724e",
     price: 2500,
     location: "Florence",
     country: "Italy",
@@ -46,15 +34,51 @@ const sampleListings = [
   {
     title: "Secluded Treehouse Getaway",
     description: "Live among the treetops in this unique treehouse retreat. A true nature lover's paradise.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1615874959474-d609969a20ed",
-    },
+    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed",
     price: 800,
     location: "Portland",
     country: "United States",
+  },
+  {
+    title: "Charming Countryside B&B",
+    description: "A cozy bed and breakfast nestled in the countryside. Enjoy home-cooked meals and fresh air.",
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+    price: 600,
+    location: "Bath",
+    country: "United Kingdom",
+  },
+  {
+    title: "Luxury Skyscraper Suite",
+    description: "Take in panoramic views of the city skyline from this high-rise luxury suite.",
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+    price: 3200,
+    location: "Dubai",
+    country: "UAE",
+  },
+  {
+    title: "Rustic Farmhouse",
+    description: "Get a taste of rural life in this spacious farmhouse with open fields and animals.",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+    price: 900,
+    location: "Nashville",
+    country: "United States",
+  },
+  {
+    title: "Island Overwater Bungalow",
+    description: "Sleep above crystal-clear waters in this serene island bungalow. A true tropical paradise.",
+    image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+    price: 4500,
+    location: "Bora Bora",
+    country: "French Polynesia",
+  },
+  {
+    title: "Ski Chalet in the Alps",
+    description: "Hit the slopes from this luxurious alpine chalet with a fireplace and mountain views.",
+    image: "https://images.unsplash.com/photo-1544033527-00a6b0a1d0d5",
+    price: 2800,
+    location: "Zermatt",
+    country: "Switzerland",
   }
-  // Continue updating the rest using same pattern...
 ];
 
 module.exports = { data: sampleListings };

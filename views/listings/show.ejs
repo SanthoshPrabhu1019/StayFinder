@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-8 offset-2">
             <br>
-            <h3>Listing Details :</h3>
+            <h3><%= listing.title %> :</h3>
 
             <div class="card col-9 listing-card">
 
@@ -13,10 +13,7 @@
                 <br>
                 <div class="card-body">
                     <p class="card-text">
-                        <b>
-                            <%= listing.title %>
-                        </b>
-                        <br>
+                       
                         <%= listing.description%>
                             <br>
                             &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night

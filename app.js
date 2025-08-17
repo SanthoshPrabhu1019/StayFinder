@@ -14,6 +14,8 @@ const listings = require("./routes/listing.js");
 const reviews = require("./routes/reviews.js");
 
 const session= require("express-session");
+const flash = require("connect-flash");
+
 
 main()
     .then((err) => {
@@ -36,11 +38,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 const sessionOptions ={
     secret : "mysupersecretcode",
     resave : false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        expires : Date.now() + 7*24*60*60*1000,
+        maxAge:  7*24*60*60*1000
+    }
 };
 
-app.use(session(sessionOptions));
 
+app.use(session(sessionOptions));
+app.use(flash());
 
 
 
@@ -48,33 +55,16 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+app.use((req,res,next)=>{
+    res.locals.success = req.flash("success");
+    next();
+})
 
 
 
 app.use("/listings",listings);
 
 app.use("/listings/:id/reviews",reviews);
-
-
-// app.get("/testlisting",async  (req,res)=>{
-//     let sample =new Listing({
-//         title: "villa",
-//         description :"BY the beach",
-//         price :1200,
-//         location: "Udupi",
-//         country:"India",
-//     });
-
-//     await sample.save();
-//     console.log("sample was saved");
-//     res.send("succesful testing");
-
-// });
-
-// app.all("*", (req, res, next) => {
-//   next(new ExpressError(404, "Page Not Found!"));
-// });
-
 
 
 

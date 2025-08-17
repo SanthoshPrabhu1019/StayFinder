@@ -13,6 +13,7 @@ const Review =require("./models/review.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/reviews.js");
 
+const session= require("express-session");
 
 main()
     .then((err) => {
@@ -32,6 +33,13 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, 'public')));
 
+const sessionOptions ={
+    secret : "mysupersecretcode",
+    resave : false,
+    saveUninitialized: true
+};
+
+app.use(session(sessionOptions));
 
 
 

@@ -5,7 +5,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema , reviewSchema } = require("../schema.js")
 const Listing = require("../models/listing.js")
 const Review =require("../models/review.js");
-
+const {isLoggedIn} = require("../middleware.js");
 
 const validateListings = (req,res,next)=>{
     let {error} = listingSchema.validate(req.body);
@@ -27,9 +27,10 @@ router.get("/", wrapAsync(async (req, res) => {
 }));
 
 //new route
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedIn, (req, res) => {
+       
     res.render("listings/new.ejs");
-}
+    }
 );
 
 // show route 
@@ -55,7 +56,7 @@ router.post("/",validateListings, wrapAsync(async (req, res, next) => {
 
 //Edit route
 
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit" ,isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     if(!listing){
@@ -78,7 +79,7 @@ router.put("/:id",validateListings, wrapAsync(async (req, res) => {
 
 
 //Delete route
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     req.flash("success","Listing Deleted!");

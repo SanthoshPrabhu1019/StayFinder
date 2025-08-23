@@ -15,15 +15,25 @@
                 <br>
                 <div class="card-body">
                     <p class="card-text">
+                        <i>
+                            <%= listing.owner.username %>
+                        </i>
+                    </p>
+                    <p class="card-text">
 
                         <%= listing.description%>
-                            <br>
-                            &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night
+                            <p class="card-text"></p>
 
-                                <br>
-                                <%= listing.location%>
-                                    <br>
-                                    <%= listing.country%>
+                            &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night
+                    </p>
+                    <p class="card-text">
+
+                        <%= listing.location%>
+                    </p>
+                    <p class="card-text">
+
+                        <%= listing.country%>
+                    </p>
 
                     </p>
                 </div>
@@ -72,8 +82,9 @@
                                 <%= r.ratings %> stars
                             </p>
                         </div>
-                        <form class="mb-3" method="POST" action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
-                           <button class="btn btn-sm btn-dark">Delete</button>
+                        <form class="mb-3" method="POST"
+                            action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
+                            <button class="btn btn-sm btn-dark">Delete</button>
                         </form>
                     </div>
                     <% } %>

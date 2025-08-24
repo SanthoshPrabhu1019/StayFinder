@@ -1,34 +1,34 @@
-const express =require("express");
+const express = require("express");
 const router = express.Router();
-const wrapAsync = require("../utils/wrapAsync.js"); 
-const ExpressError = require("../utils/ExpressError.js");
-const { listingSchema , reviewSchema } = require("../schema.js");
-const {isLoggedIn ,isOwner , validateListings} = require("../middleware.js");
-const listingController = require("../controllers/listing.js");
-
-// listings
-
-router.get("/", wrapAsync(listingController.index));
-
-//new route
-router.get("/new",isLoggedIn ,wrapAsync(listingController.renderNewForm));
-
-// show route 
-router.get("/:id", wrapAsync(listingController.showListing));
-
-// create route
-router.post("/",validateListings, wrapAsync(listingController.createListing));
-
-//Edit route
-
-router.get("/:id/edit" ,isLoggedIn, wrapAsync(listingController.renderEditForm));
-
-//Update route
-router.put("/:id",validateListings, wrapAsync(listingController.updateListing));
+const { 
+    index, 
+    renderNewForm, 
+    showListing, 
+    createListing, 
+    renderEditForm, 
+    updateListing, 
+    destroyListing 
+} = require("../controllers/listing");
+const { isLoggedIn, isOwner, validateListings } = require("../middleware.js");
+const wrapAsync = require("../utils/wrapAsync.js");
 
 
 
-//Delete route
-router.delete("/:id",isLoggedIn, wrapAsync(listingController.destroyListing));
+// Index route & Create listing route
+router.route("/")
+    .get(wrapAsync(index))                       // Show all listings
+    .post(isLoggedIn, validateListings, wrapAsync(createListing)); // Create new listing
+
+// New listing form
+router.get("/new", isLoggedIn, renderNewForm);
+
+// Show, Update, Delete, Edit listing routes
+router.route("/:id")
+    .get(wrapAsync(showListing))                 // Show single listing
+    .put(isLoggedIn, validateListings, wrapAsync(updateListing))  // Update listing
+    .delete(isLoggedIn, wrapAsync(destroyListing)); // Delete listing
+
+// Edit listing form
+router.get("/:id/edit", isLoggedIn, wrapAsync(renderEditForm));
 
 module.exports = router;

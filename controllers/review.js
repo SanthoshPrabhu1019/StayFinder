@@ -1,5 +1,5 @@
-const review = require("../models/review");
-
+const Review = require("../models/review");
+const Listing = require("../models/listing");
 
 module.exports.createReview =async(req,res) => {
     let listing=  await Listing.findById(req.params.id);

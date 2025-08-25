@@ -11,14 +11,16 @@ const {
 } = require("../controllers/listing");
 const { isLoggedIn, isOwner, validateListings } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-
+const multer  = require('multer');
+const {storage} =require("../cloudConfig.js");
+const upload = multer({storage});
 
 
 // Index route & Create listing route
 router.route("/")
     .get(wrapAsync(index))                       // Show all listings
-    .post(isLoggedIn, validateListings, wrapAsync(createListing)); // Create new listing
-
+    .post(isLoggedIn, upload.single("listing[image]") ,wrapAsync(createListing)); // Create new listing
+    
 // New listing form
 router.get("/new", isLoggedIn, renderNewForm);
 

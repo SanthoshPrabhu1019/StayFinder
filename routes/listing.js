@@ -27,7 +27,7 @@ router.get("/new", isLoggedIn, renderNewForm);
 // Show, Update, Delete, Edit listing routes
 router.route("/:id")
     .get(wrapAsync(showListing))                 // Show single listing
-    .put(isLoggedIn, validateListings, wrapAsync(updateListing))  // Update listing
+    .put(isLoggedIn, upload.single("listing[image]"), validateListings, wrapAsync(updateListing))  // Update listing
     .delete(isLoggedIn, wrapAsync(destroyListing)); // Delete listing
 
 // Edit listing form

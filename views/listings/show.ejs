@@ -3,7 +3,7 @@
 <% layout("/layouts/boilerplate") %>
 
     <div class="row">
-        <div class="col-10 offset-2">
+        <div class="col-12 offset-2">
             <br>
             <h3>
                 <%= listing.title %> :
@@ -89,29 +89,52 @@
                     </div>
                     <% } %>
 
-                        <p><b>Reviews</b></p>
-                        <div class="row">
-                            <% for (let r of listing.review) { %>
-                                <div class="card col-md-5 col-lg-4 ms-3 mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@<%=r.author.username%>
-                                        </h5>
-                                        <p class="card-text">
-                                            <%= r.comment %>
-                                        </p>
+                        <% if(listing.review.length> 0) {%>
+                            <div class="row">
+                                <p><b>Reviews</b></p>
+                                <% for (let r of listing.review) { %>
+                                    <div class="card col-md-5 col-lg-4 ms-3 mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@<%=r.author.username%>
+                                            </h5>
+                                            <p class="card-text">
+                                                <%= r.comment %>
+                                            </p>
 
 
-                                        <p class="starability-result card-text " data-rating="<%= r.ratings %>">
-                                            Rated: 3 stars
-                                        </p>
+                                            <p class="starability-result card-text " data-rating="<%= r.ratings %>">
+                                                Rated: 3 stars
+                                            </p>
+                                        </div>
+                                        <form class="mb-3" method="POST"
+                                            action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
+                                            <button class="btn btn-sm btn-dark">Delete</button>
+                                        </form>
                                     </div>
-                                    <form class="mb-3" method="POST"
-                                        action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
-                                        <button class="btn btn-sm btn-dark">Delete</button>
-                                    </form>
+                                    <% } %>
+                            </div>
+                            <% } %>
+
+                                <div class="col-12 mt-3 mb-3">
+                                    <h3>Where you will be</h3>
+                                    <div id="map" style="height: 500px; width: 100%; border-radius: 10px;"></div>
                                 </div>
-                                <% } %>
-                        </div>
+
+                                <!-- Leaflet CSS & JS -->
+                                <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                                <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+                                <!-- Pass listing data to JS -->
+                                <script>
+                                    const listing = <%- JSON.stringify(listing) %>;
+                                </script>
+
+                                <!-- Your custom map script -->
+                                <script src="/js/map.js"></script>
+                                <script>
+                                    initMap(listing);
+                                </script>
+
 
 
         </div>

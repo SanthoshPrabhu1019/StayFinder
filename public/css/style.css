@@ -125,3 +125,30 @@ body {
     border: none;
 
 }
+
+#filters{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.filter{
+    margin-top: 1rem;
+    margin-right: 2rem;
+    text-align: center;
+    opacity: 1;
+}
+.filter:hover{
+    opacity: 0.6;
+}
+
+.filter p{
+    font-size: 0.8rem;
+    color: black;
+}
+.filter a {
+    color: black;           
+    text-decoration: none;  
+}
+
+

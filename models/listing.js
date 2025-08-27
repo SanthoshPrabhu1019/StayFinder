@@ -37,6 +37,34 @@ const listingSchema = new Schema({
       required: true,
     },
   },
+  category: {
+  type: [String],
+  enum: [
+    "Trending",
+    "Rooms",
+    "Mountains",
+    "Castles",
+    "Amazing Pools",
+    "Camping",
+    "Farm",
+    "Arctic",
+    "Beach",
+    "Boat",
+    "Ski-in/out",
+    "Apartment",
+    "Woodlands",
+    "Lake",
+    "Cabins",
+    "Countryside",
+    "Bed & Breakfasts",
+    "Campsite",
+    "Historical Homes",
+    "Vineyard",
+    "Mansions"
+  ],
+  required: true
+}
+
 
 
 });

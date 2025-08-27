@@ -70,3 +70,12 @@ module.exports.isAuthor = async (req, res, next) => {
     }
     next();
 };
+
+module.exports.wrapInCategoryArray = (req, res, next) => {
+  if (req.body.listing && req.body.listing.category) {
+    if (!Array.isArray(req.body.listing.category)) {
+      req.body.listing.category = [req.body.listing.category];
+    }
+  }
+  next();
+};

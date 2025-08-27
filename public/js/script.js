@@ -41,3 +41,41 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('filters').addEventListener('scroll', updateArrows);
     updateArrows();
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const filters = document.getElementById('filters');
+  if (filters) {
+    filters.addEventListener('scroll', updateArrows);
+    updateArrows();
+  }
+
+  const listingForm = document.getElementById('listing-form');
+  const categoryGroup = document.getElementById('category-group');
+
+  if (listingForm && categoryGroup) {
+    const checkboxes = categoryGroup.querySelectorAll('input[type="checkbox"]');
+    const feedbackDiv = categoryGroup.querySelector('.invalid-feedback');
+
+    listingForm.addEventListener('submit', (event) => {
+      const isOneChecked = Array.from(checkboxes).some(cb => cb.checked);
+      if (!isOneChecked) {
+        event.preventDefault();
+        event.stopPropagation();
+        feedbackDiv.style.display = 'block';
+      } else {
+        feedbackDiv.style.display = 'none';
+      }
+    });
+
+    // Hides the error message as soon as the user checks a box.
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        if (Array.from(checkboxes).some(cb => cb.checked)) {
+          feedbackDiv.style.display = 'none';
+        }
+      });
+    });
+  }
+});

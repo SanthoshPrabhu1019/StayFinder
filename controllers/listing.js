@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const geocoder = require("../utils/geocoder");
 
 
 module.exports.index = async (req, res) => {
@@ -34,6 +35,14 @@ module.exports.createListing = async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     newListing.owner=req.user._id;
     newListing.image={url,filename};
+    const { location, country } = req.body.listing;
+    const geoData = await geocoder.geocode(`${location}, ${country}`);
+    if (geoData.length > 0) {
+      newListing.geometry = {
+        type: "Point",
+        coordinates: [geoData[0].longitude, geoData[0].latitude],
+      };
+    }
     await newListing.save();
     console.log(req.body.listing);
     req.flash("success","New Listing Created!");
@@ -58,12 +67,25 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    if(typeof req.file !=="undefined"){
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image={url,filename};
-    await listing.save();
+
+    if (typeof req.file !== "undefined") {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        listing.image = { url, filename };
     }
+
+    const { location, country } = req.body.listing;
+    if (location || country) {
+        const geoData = await geocoder.geocode(`${location}, ${country}`);
+        if (geoData.length > 0) {
+            listing.geometry = {
+                type: "Point",
+                coordinates: [geoData[0].longitude, geoData[0].latitude],
+            };
+        }
+    }
+
+    await listing.save();
     req.flash("success","Listing Updated!");
     return res.redirect(`/listings/${id}`);
 };

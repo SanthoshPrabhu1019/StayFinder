@@ -14,3 +14,4 @@ function initMap(listing) {
       .bindPopup(`<b>${listing.title}</b><br>${listing.location}, ${listing.country}`)
       .openPopup();
 }
+

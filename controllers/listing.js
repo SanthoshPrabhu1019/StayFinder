@@ -99,3 +99,16 @@ module.exports.destroyListing = async (req, res) => {
     return res.redirect("/listings");
 
 };
+
+
+module.exports.filter = async (req, res, next) => {
+  let { id } = req.params;
+  let alllisting = await Listing.find({ category: { $all: [id] } });
+  if (alllisting.length != 0) {
+    res.locals.success = `Listings Filtered by ${id}!`;
+    res.render("listings/index.ejs", { alllisting });
+  } else {
+    req.flash("error", `There is no any Listing for ${id}!`);
+    res.redirect("/listings");
+  }
+};

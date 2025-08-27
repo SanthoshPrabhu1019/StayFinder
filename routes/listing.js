@@ -7,7 +7,8 @@ const {
     createListing, 
     renderEditForm, 
     updateListing, 
-    destroyListing 
+    destroyListing,
+    filter
 } = require("../controllers/listing");
 const { isLoggedIn, isOwner, validateListings ,wrapInCategoryArray} = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
@@ -20,7 +21,9 @@ const upload = multer({storage});
 router.route("/")
     .get(wrapAsync(index))                       // Show all listings
     .post(isLoggedIn, upload.single("listing[image]"),wrapInCategoryArray ,validateListings,wrapAsync(createListing)); // Create new listing
-    
+
+router.get("/filter/:id", wrapAsync(filter));
+
 // New listing form
 router.get("/new", isLoggedIn, renderNewForm);
 

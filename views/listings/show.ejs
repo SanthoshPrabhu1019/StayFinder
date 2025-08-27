@@ -15,27 +15,39 @@
 
                 <br>
                 <div class="card-body">
-                    <p class="card-text"> Owned by
-                        <i>
+                    <p class="listing-card-text">
+                        <b>Hosted By: </b><i>
                             <%= listing.owner.username %>
                         </i>
                     </p>
-                    <p class="card-text">
-
-                        <%= listing.description%>
+                    <p class="listing-card-text">
+                        <b>Description: </b>
+                        <%=listing.description%>
                     </p>
-                    <p class="card-text"></p>
+                    <p class="listing-card-text">
+                        <b>Cost: </b>
+                        &#8377;
+                        <%=listing.price.toLocaleString("en-In")%>
+                    </p>
+                    <p class="listing-card-text">
+                        <b>Categories:</b>
+                    </p>
 
-                    &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> / night
-                        </p>
-                        <p class="card-text">
+                    <ul class="row list-unstyled ms-3">
+                        <% listing.category.forEach(function(cat) { %>
+                            <li class="col-md-4 col-sm-6 d-flex align-items-start">
+                                <span class="me-2">•</span>
+                                <%= cat %>
+                            </li>
+                            <% }) %>
+                    </ul>
 
-                            <%= listing.location%>
-                        </p>
-                        <p class="card-text">
-
-                            <%= listing.country%>
-                        </p>
+                    <p class="listing-card-text"><b>Location:</b>
+                        <%= listing.location %>
+                    </p>
+                    <p class="listing-card-text"><b>Country:</b>
+                        <%= listing.country %>
+                    </p>
                 </div>
             </div>
             <% if( currUser && currUser._id.equals(listing.owner._id)){%>

@@ -36,7 +36,6 @@ module.exports.createListing = async (req, res, next) => {
     newListing.owner=req.user._id;
     newListing.image={url,filename};
     const { location, country } = req.body.listing;
-    const geoData = await geocoder.geocode(`${location}, ${country}`);
     if (geoData.length > 0) {
       newListing.geometry = {
         type: "Point",
@@ -111,4 +110,24 @@ module.exports.filter = async (req, res, next) => {
     req.flash("error", `There is no any Listing for ${id}!`);
     res.redirect("/listings");
   }
+};
+
+module.exports.search = async (req, res) => {
+    const { q } = req.query;
+
+    const alllisting = await Listing.find({
+        $or: [
+            { title: { $regex: q, $options: "i" } },
+            { country: { $regex: q, $options: "i" } },
+            { location: { $regex: q, $options: "i" } },
+        ],
+    });
+
+    if (alllisting.length === 0) {
+        req.flash("error", `No listings found for "${q}"`);
+        return res.redirect("/listings");
+    }
+
+    req.flash("success", `${alllisting.length} listings found for "${q}"`);
+    res.render("listings/index.ejs", { alllisting });
 };

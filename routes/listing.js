@@ -8,7 +8,8 @@ const {
     renderEditForm, 
     updateListing, 
     destroyListing,
-    filter
+    filter,
+    search
 } = require("../controllers/listing");
 const { isLoggedIn, isOwner, validateListings ,wrapInCategoryArray} = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
@@ -26,6 +27,7 @@ router.get("/filter/:id", wrapAsync(filter));
 
 // New listing form
 router.get("/new", isLoggedIn, renderNewForm);
+router.get("/search", wrapAsync(search));
 
 // Show, Update, Delete, Edit listing routes
 router.route("/:id")

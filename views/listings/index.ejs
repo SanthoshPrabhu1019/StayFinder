@@ -148,12 +148,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-cols-lg-3 row cols-md-2 row-cols-sm-1">
+            <div class="row  row-cols-lg-4 row-cols-adjust">
                 <% for(let listing of alllisting){ %>
                     <a href="/listings/<%= listing._id%>" class="listing-link">
 
                         <div class="listing-card card col">
-                            <img class="card-img-top" style="height: 20rem; " src="<%= listing.image.url  %>"
+                            <img class="card-img-top" src="<%= listing.image.url  %>"
                                 alt="listing image">
                             <div class="card-img-overlay"> </div>
                             <div class="card-body">

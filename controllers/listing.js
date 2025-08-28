@@ -36,6 +36,8 @@ module.exports.createListing = async (req, res, next) => {
     newListing.owner=req.user._id;
     newListing.image={url,filename};
     const { location, country } = req.body.listing;
+    const geoData = await geocoder.geocode(`${location}, ${country}`);
+
     if (geoData.length > 0) {
       newListing.geometry = {
         type: "Point",

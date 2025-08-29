@@ -221,7 +221,7 @@ const sampleListings = [
     location: "Kyoto",
     country: "Japan",
     geometry: { type: "Point", coordinates: [135.7681, 35.0116] },
-    category: ["Bed & Breakfasts", "Historical Homes"]
+    category: ["Historical Homes"]
   },
   {
     title: "Overwater Bungalow",
@@ -347,7 +347,7 @@ const sampleListings = [
     location: "Manali",
     country: "India",
     geometry: { type: "Point", coordinates: [77.1892, 32.2396] },
-    category: ["Mountains", "Bed & Breakfasts"]
+    category: ["Mountains"]
   },
   {
     title: "Jungle Tree Lodge",

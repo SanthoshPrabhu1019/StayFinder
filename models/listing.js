@@ -56,7 +56,6 @@ const listingSchema = new Schema({
     "Lake",
     "Cabins",
     "Countryside",
-    "Bed & Breakfasts",
     "Campsite",
     "Historical Homes",
     "Vineyard",

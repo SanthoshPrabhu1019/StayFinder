@@ -28,7 +28,13 @@ body {
     font-size: 1rem;
 }
 
-/* footer */
+.container-fluid.px-5 {
+    flex: 1; 
+}
+
+.f-info {
+    flex-shrink: 0;
+}
 
 .f-info-links a {
     text-decoration: none;

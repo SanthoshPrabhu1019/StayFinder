@@ -2,14 +2,14 @@
 
 <% layout("/layouts/boilerplate") %>
 
-    <div class="row">
-        <div class="col-12 offset-2">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-10 col-12">
             <br>
             <h3>
                 <%= listing.title %> :
             </h3>
 
-            <div class="card col-8 listing-card">
+            <div class="card listing-card mx-auto">
 
                 <img class="card-img-top show-img " src="<%= listing.image.url %>" alt="listing_image">
 
@@ -50,57 +50,130 @@
                     </p>
                 </div>
             </div>
-            <% if( currUser && currUser._id.equals(listing.owner._id)){%>
-                <div class="show-btn col">
-                    <a href="/listings/<%=listing._id%>/edit" class=" btn btn-dark col-1 btn-blue">Edit</a>
+            <% let allAmenities=[]; if (listing.amenities) { for (let [section, items] of listing.amenities.entries()) {
+                allAmenities=allAmenities.concat(items); } } %>
 
-                    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-                        <button class="btn btn-dark offset-4 btn-blue"> Delete</button>
-                    </form>
-                </div>
-                <% }%>
+                <div class="mt-4">
+                    <hr>
+                    <b>What this place offers:</b>
+                    <div class="row mt-2">
 
-                    <div class="col-8 mt-3 mb-3 ">
-                        <hr>
-                        <% if(currUser) { %>
-
-                            <br>
-
-                            <h4>Leave a Review</h4>
-                            <form action="/listings/<%= listing._id%>/reviews" method="POST" novalidate
-                                class="needs-validation">
-                                <div class="mb-3 mt-3">
-                                    <label for="rating" class="form-label">Rating</label>
-                                    <fieldset class="starability-slot">
-
-                                        <input type="radio" id="no-rate" class="input-no-rate" name="review[ratings]"
-                                            value="1" checked aria-label="No rating." />
-                                        <input type="radio" id="first-rate1" name="review[ratings]" value="1" />
-                                        <label for="first-rate1" title="Terrible">1 star</label>
-                                        <input type="radio" id="first-rate2" name="review[ratings]" value="2" />
-                                        <label for="first-rate2" title="Not good">2 stars</label>
-                                        <input type="radio" id="first-rate3" name="review[ratings]" value="3" />
-                                        <label for="first-rate3" title="Average">3 stars</label>
-                                        <input type="radio" id="first-rate4" name="review[ratings]" value="4" />
-                                        <label for="first-rate4" title="Very good">4 stars</label>
-                                        <input type="radio" id="first-rate5" name="review[ratings]" value="5" />
-                                        <label for="first-rate5" title="Amazing">5 stars</label>
-                                    </fieldset>
-                                </div>
-                                <div>
-                                    <label for="comment" class="form-label">Comments</label>
-                                    <textarea name="review[comment]" id="comment" cols="30" rows="5"
-                                        class="form-control" required></textarea>
-                                    <div class="invalid-feedback">
-                                        Please add comments for review
-                                    </div>
-                                </div>
-                                <br>
-                                <button class=" btn btn-dark btn-blue">Submit</button>
-                            </form>
-                    
-                    <% } %>
+                        <% allAmenities.slice(0, 9).forEach(function(am){ %>
+                            <div class="col-md-6 d-flex align-items-center mb-2">
+                                <i class="<%= amenityIcons[am] || 'fas fa-check' %> me-2 text-dark"></i>
+                                <span>
+                                    <%= am %>
+                                </span>
+                            </div>
+                            <% }) %>
                     </div>
+
+                    <% if (allAmenities.length> 9) { %>
+                        <div class="d-flex justify-content-start mt-3">
+                            <button class="btn btn-danger px-4 py-2" data-bs-toggle="modal"
+                                data-bs-target="#amenitiesModal">
+                                Show all <%= allAmenities.length %> amenities
+                            </button>
+                        </div>
+
+                        <% } %>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="amenitiesModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content p-4 rounded-4">
+
+                            <!-- Header -->
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title fw-bold">What this place offers</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body overflow-auto" style="max-height: 70vh;">
+                                <% if (listing.amenities) { %>
+                                    <% for (let [section, items] of listing.amenities.entries()) { %>
+                                        <div class="mb-4">
+                                            <h6 class="fw-semibold mb-3">
+                                                <%= section %>
+                                            </h6>
+
+                                            <% items.forEach(function(am) { %>
+                                                <div class="d-flex align-items-center py-2 border-bottom">
+                                                    <i
+                                                        class="<%= amenityIcons[am] || 'fas fa-check' %> me-3 text-dark fs-5"></i>
+                                                    <span>
+                                                        <%= am %>
+                                                    </span>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+                                        <% } %>
+                                            <% } %>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <% if( currUser && currUser._id.equals(listing.owner._id)){%>
+                    <div class="show-btn col">
+                        <a href="/listings/<%=listing._id%>/edit" class=" btn btn-dark col-1 btn-blue">Edit</a>
+
+                        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+                            <button class="btn btn-dark offset-4 btn-blue"> Delete</button>
+                        </form>
+                    </div>
+                    <% }%>
+
+                        <div class="col-8 mt-3 mb-3 ">
+                            <hr>
+                            <% if(currUser) { %>
+
+                                <br>
+
+                                <h4>Leave a Review</h4>
+                                <form action="/listings/<%= listing._id%>/reviews" method="POST" novalidate
+                                    class="needs-validation">
+                                    <div class="mb-3 mt-3">
+                                        <label for="rating" class="form-label">Rating</label>
+                                        <fieldset class="starability-slot">
+
+                                            <input type="radio" id="no-rate" class="input-no-rate"
+                                                name="review[ratings]" value="1" checked aria-label="No rating." />
+                                            <input type="radio" id="first-rate1" name="review[ratings]" value="1" />
+                                            <label for="first-rate1" title="Terrible">1 star</label>
+                                            <input type="radio" id="first-rate2" name="review[ratings]" value="2" />
+                                            <label for="first-rate2" title="Not good">2 stars</label>
+                                            <input type="radio" id="first-rate3" name="review[ratings]" value="3" />
+                                            <label for="first-rate3" title="Average">3 stars</label>
+                                            <input type="radio" id="first-rate4" name="review[ratings]" value="4" />
+                                            <label for="first-rate4" title="Very good">4 stars</label>
+                                            <input type="radio" id="first-rate5" name="review[ratings]" value="5" />
+                                            <label for="first-rate5" title="Amazing">5 stars</label>
+                                        </fieldset>
+                                    </div>
+                                    <div>
+                                        <label for="comment" class="form-label">Comments</label>
+                                        <textarea name="review[comment]" id="comment" cols="30" rows="5"
+                                            class="form-control" required></textarea>
+                                        <div class="invalid-feedback">
+                                            Please add comments for review
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <button class=" btn btn-dark btn-blue">Submit</button>
+                                </form>
+
+                                <% } %>
+                        </div>
 
                         <% if(listing.review.length> 0) {%>
                             <div class="row">
@@ -128,7 +201,7 @@
                             </div>
                             <% } %>
 
-                                <div class="col-8 mt-3 mb-3">
+                                <div class="col-lg-12 col-md-12 col-12">
                                     <h3>Where you will be</h3>
                                     <div id="map" style="height: 500px; width: 100%; border-radius: 10px;"></div>
                                 </div>

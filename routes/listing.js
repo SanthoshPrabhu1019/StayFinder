@@ -9,7 +9,7 @@ const {
     updateListing, 
     destroyListing,
     filter,
-    search
+    search 
 } = require("../controllers/listing");
 const { isLoggedIn, isOwner, validateListings ,wrapInCategoryArray} = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");

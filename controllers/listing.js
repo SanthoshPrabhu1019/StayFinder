@@ -1,6 +1,6 @@
 const Listing = require("../models/listing");
 const geocoder = require("../utils/geocoder");
-
+const { categoryIcons ,amenityIcons } = require('../utils/constants');
 
 module.exports.index = async (req, res) => {
     const alllisting = await Listing.find({});
@@ -26,7 +26,7 @@ const listing = await Listing.findById(id)
        req.flash("error","Listing does not exist!");
        return res.redirect("/listings"); 
     }
-    return res.render("listings/show.ejs", { listing });
+    return res.render("listings/show.ejs", { listing,categoryIcons,amenityIcons   });
 });
 
 module.exports.createListing = async (req, res, next) => {

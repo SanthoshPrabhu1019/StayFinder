@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const review = require("./review");
+const { categories } = require("../utils/constants"); // import categories only
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
@@ -11,21 +12,18 @@ const listingSchema = new Schema({
   image: { 
       url: String,
       filename: String
-    
   },
   price: Number,
   location: String,
   country: String,
   review: [{
     type: Schema.Types.ObjectId,
-    ref : "Review"
+    ref: "Review"
   }],
-
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  
   geometry: {
     type: {
       type: String,
@@ -38,40 +36,20 @@ const listingSchema = new Schema({
     },
   },
   category: {
-  type: [String],
-  enum: [
-    "Trending",
-    "Rooms",
-    "Mountains",
-    "Castles",
-    "Amazing Pools",
-    "Camping",
-    "Farm",
-    "Arctic",
-    "Beach",
-    "Boat",
-    "Ski-in/out",
-    "Apartment",
-    "Woodlands",
-    "Lake",
-    "Cabins",
-    "Countryside",
-    "Campsite",
-    "Historical Homes",
-    "Vineyard",
-    "Mansions"
-  ],
-  required: true
-}
-
-
-
+    type: [String],
+    enum: categories,  // dynamic categories
+    required: true
+  },
+  amenities: {
+    type: Map,
+    of: [String]       // keys = sections, values = arrays
+  }
 });
 
-
-listingSchema.post("findOneAndDelete", async(listing)=>{
-  if(listing){
-  await review.deleteMany({_id :{$in: listing.reviews}});
+// Middleware to delete associated reviews when a listing is deleted
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await review.deleteMany({ _id: { $in: listing.review } });
   }
 });
 

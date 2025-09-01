@@ -124,7 +124,7 @@
 
 
                 <% if( currUser && currUser._id.equals(listing.owner._id)){%>
-                    <div class="show-btn col">
+                    <div class="show-btn col mt-4">
                         <a href="/listings/<%=listing._id%>/edit" class=" btn btn-dark col-1 btn-blue">Edit</a>
 
                         <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">

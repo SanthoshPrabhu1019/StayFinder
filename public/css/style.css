@@ -271,7 +271,6 @@ height: fit-content;
 }
 
 
-/* Airbnb-style modal */
 .modal-content {
   border-radius: 16px;
   padding: 20px;
@@ -287,7 +286,6 @@ height: fit-content;
   color: #222;
 }
 
-/* Amenities icon spacing */
 .modal-body i {
   width: 24px;
   text-align: center;

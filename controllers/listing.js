@@ -76,7 +76,7 @@ module.exports.updateListing = async (req, res) => {
     }
 
     const { location, country } = req.body.listing;
-    if (location || country) {
+    if ((location && location !== listing.location) || (country && country !== listing.country)) {
         const geoData = await geocoder.geocode(`${location}, ${country}`);
         if (geoData.length > 0) {
             listing.geometry = {

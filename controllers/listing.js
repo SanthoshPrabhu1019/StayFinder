@@ -1,6 +1,6 @@
 const Listing = require("../models/listing");
 const geocoder = require("../utils/geocoder");
-const { categoryIcons ,amenityIcons } = require('../utils/constants');
+const { amenities, categories, categoryIcons, amenityIcons } = require("../utils/constants");
 
 module.exports.index = async (req, res) => {
     const alllisting = await Listing.find({});
@@ -9,8 +9,7 @@ module.exports.index = async (req, res) => {
 
 
 module.exports.renderNewForm = (req, res) => {
-
-    return res.render("listings/new.ejs");
+    return res.render("listings/new.ejs", { amenities, categories, categoryIcons, amenityIcons });
 };
 
 module.exports.showListing =(async (req, res) => {
